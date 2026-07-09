@@ -1,0 +1,13 @@
+{
+	"name": "DS_Bulkcopy_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Cloud_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

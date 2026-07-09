@@ -1,0 +1,19 @@
+{
+	"name": "DS_deletefile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "products.csv",
+				"fileSystem": "source-raw-data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,62 @@
+{
+	"name": "SCD_Dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_SCD1_src",
+						"type": "DatasetReference"
+					},
+					"name": "EmpCSV"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SCD_AzureSqlTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinkDB"
+				}
+			],
+			"transformations": [
+				{
+					"name": "alterRow"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Employee_ID as integer,",
+				"          First_Name as string,",
+				"          Salary as integer,",
+				"          Location as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> EmpCSV",
+				"EmpCSV alterRow(upsertIf(1==1)) ~> alterRow",
+				"alterRow sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Employee_ID as integer,",
+				"          First_Name as string,",
+				"          Salary as integer,",
+				"          Location as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:false,",
+				"     upsertable:true,",
+				"     keys:['Employee_ID'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     partitionBy('hash', 1)) ~> sinkDB"
+			]
+		}
+	}
+}

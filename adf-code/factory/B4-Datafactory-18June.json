@@ -1,0 +1,15 @@
+{
+	"name": "B4-Datafactory-18June",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8e095c4b-ae85-4b2c-b3e0-9e3f199013d0",
+		"tenantId": "067e3193-fbc2-4341-8930-bfb5eec403fe"
+	}
+}

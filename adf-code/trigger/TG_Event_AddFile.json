@@ -1,0 +1,25 @@
+{
+	"name": "TG_Event_AddFile",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "4_PL_ProductionReady",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source-raw-data/blobs/",
+			"blobPathEndsWith": "products.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourceGroups/B4-RG-CI/providers/Microsoft.Storage/storageAccounts/b4datalakestorageaccount",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

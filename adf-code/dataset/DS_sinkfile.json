@@ -1,0 +1,24 @@
+{
+	"name": "DS_sinkfile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "DataTransformation",
+				"fileSystem": "reporting-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
