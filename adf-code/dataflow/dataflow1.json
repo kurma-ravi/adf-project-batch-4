@@ -1,0 +1,82 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedTextjoin",
+						"type": "DatasetReference"
+					},
+					"name": "sourcecustomer"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedTextordersjoin",
+						"type": "DatasetReference"
+					},
+					"name": "sourceorders"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedTextSink",
+						"type": "DatasetReference"
+					},
+					"name": "sinkCSV"
+				}
+			],
+			"transformations": [
+				{
+					"name": "joincustOrder"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Customer_ID as integer,",
+				"          Name as string,",
+				"          Email as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourcecustomer",
+				"source(output(",
+				"          Order_ID as integer,",
+				"          Cust_ID as integer,",
+				"          Price as float",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourceorders",
+				"sourcecustomer, sourceorders join(Customer_ID == Cust_ID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     partitionBy('hash', 1),",
+				"     broadcast: 'auto')~> joincustOrder",
+				"joincustOrder select(mapColumn(",
+				"          Customer_ID,",
+				"          Name,",
+				"          Email,",
+				"          Order_ID,",
+				"          Price",
+				"     ),",
+				"     partitionBy('hash', 1),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkCSV"
+			]
+		}
+	}
+}
