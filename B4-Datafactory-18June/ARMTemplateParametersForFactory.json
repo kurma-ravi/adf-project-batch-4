@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "B4-Datafactory-18June"
+		},
+		"LS_Cloud_AzureSqlDatabase_password": {
+			"value": ""
+		},
+		"LS_DataLake_accountKey": {
+			"value": ""
+		},
+		"LS_Cloud_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "sqldatabaseservermarch.database.windows.net"
+		},
+		"LS_Cloud_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "azureSQLDB-CI"
+		},
+		"LS_Cloud_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "adeazuresql"
+		},
+		"LS_DataLake_properties_typeProperties_url": {
+			"value": "https://b4datalakestorageaccount.dfs.core.windows.net/"
+		},
+		"LS_Github_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"TG_Event_AddFile_properties_typeProperties_scope": {
+			"value": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourceGroups/B4-RG-CI/providers/Microsoft.Storage/storageAccounts/b4datalakestorageaccount"
+		}
+	}
+}
